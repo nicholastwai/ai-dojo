@@ -1,7 +1,7 @@
 # AI Engineering Dojo
 
 <p align="center">
-  <img src="assets/dojo-emblem.png" width="640" alt="AI Engineering Dojo emblem — pixel art Ryukyu-style pavilion with a red tiled roof, palm trees, and blue sky">
+  <img src="assets/dojo-banner.png" width="100%" alt="AI Dojo banner — pixel art of a temple gate signed 「AI Dojo 人工智能道场」, a straw-hatted traveler climbing the steps, autumn maples and a waterfall in misty mountains, beside a hanging scroll reading 刻意练习 · 精益求精 (deliberate practice, ever-refining)">
 </p>
 
 A files-first accountability and curation layer for becoming a competent AI
