@@ -1,0 +1,42 @@
+# Active Builds
+
+_Copy to `ACTIVE-BUILDS.md` (gitignored — this is yours, not the public
+template's) once your target role or market is specific enough to name
+actual projects instead of picking from the generic archetype menu in
+`curriculum/07-smb-capstones.md`. When this file exists and has entries,
+the agent should treat it as the primary work plan, ahead of the generic
+archetypes — see `AGENTS.md`._
+
+## Why override the generic menu
+The archetypes in `curriculum/07-smb-capstones.md` are good defaults when
+you don't yet know exactly who you're building for. Once you do — a
+specific business model, a specific target employer type, a specific
+market — a handful of named, real projects mapped tightly to that target
+beats an open-ended menu. This file is where you record that plan so the
+agent stops treating it as one option among six and starts treating it as
+the curriculum.
+
+## Format, per project
+
+### [Project name]
+- **What it is:** one or two sentences.
+- **Why this one, for this goal:** how it maps to your actual target
+  (a business model, a role type, a market).
+- **Technical gaps to close:** be specific — not "learn RAG," but "grounding
+  a narration layer in structured data without hallucinating unlisted
+  numbers." Note explicitly where the source curriculum (`curriculum/00-overview.md`
+  phase mapping) actually covers the gap vs. where it doesn't (some things —
+  vendor API quirks, git hygiene, domain-specific edge cases — aren't AI
+  curriculum content at all, and pretending otherwise wastes time looking
+  for a lesson that isn't coming).
+- **Sequencing rationale:** why this project is where it is in the order —
+  revenue timing, dependency risk, runway needed to resolve an open
+  question (access, a skill still developing, etc.).
+- **Honesty bar:** what makes this project's evidence real rather than a
+  demo — a real eval harness, a real before/after number, a documented real
+  failure, a real external user. Say what it is for this specific project,
+  not the generic tier-3 definition.
+
+---
+
+<!-- Projects go below, in build order -->

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Engineering Dojo — Progress</title>
+
+<!--
+  ============================================================================
+  AGENT: THIS BLOCK IS THE DASHBOARD DATA. Update it, and nothing else, when
+  you update progress/STATE.md. Keep the two in sync.
+    - tier: 0 = not started, 1 = understand, 2 = build, 3 = ship
+    - lastTouched / date: "YYYY-MM-DD" or "" if never
+    - sessionLog: most recent first
+  Do not add commentary inside the JSON. It must stay valid JSON.
+  ============================================================================
+-->
+<script id="dojo-data" type="application/json">
+{
+  "learner": "",
+  "tracks": [
+    { "name": "Prompt engineering",           "tier": 0, "lastTouched": "" },
+    { "name": "RAG",                           "tier": 0, "lastTouched": "" },
+    { "name": "Agents & tool use",             "tier": 0, "lastTouched": "" },
+    { "name": "Evals",                         "tier": 0, "lastTouched": "" },
+    { "name": "Fine-tuning",                   "tier": 0, "lastTouched": "" },
+    { "name": "Deployment / productionizing",  "tier": 0, "lastTouched": "" },
+    { "name": "SMB capstone (go-to-market)",   "tier": 0, "lastTouched": "" }
+  ],
+  "streak": { "sessionsThisWeek": 0, "lastSession": "", "weekStreak": 0 },
+  "sessionLog": [
+    { "date": "", "note": "Workspace initialized. Open a session to begin." }
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --ground: #1b1e2b;
+    --panel: #232736;
+    --panel-2: #2b3042;
+    --line: #363c50;
+    --ink: #e9e7e0;
+    --ink-dim: #9aa0b4;
+    --ink-faint: #6c7288;
+    --gold: #d4a94e;
+    --gold-soft: #e6c988;
+    --ship: #6fae9f;
+    --empty: #333849;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: clamp(20px, 5vw, 56px);
+  }
+
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  /* ---- Header ---- */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 22px;
+    flex-wrap: wrap;
+  }
+  .brand-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 6px;
+  }
+  .brand-title {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.05;
+  }
+  .brand-sub { color: var(--ink-dim); font-size: 14px; margin: 8px 0 0; }
+
+  .rank-badge {
+    text-align: right;
+    min-width: 150px;
+  }
+  .rank-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 4px;
+  }
+  .rank-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold-soft);
+    margin: 0;
+  }
+  .rank-points { font-family: var(--mono); font-size: 12px; color: var(--ink-dim); margin: 2px 0 0; }
+
+  /* ---- Stat strip ---- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 26px 0 34px;
+  }
+  .stat { background: var(--panel); padding: 18px 20px; }
+  .stat-num { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .stat-num .slash { color: var(--ink-faint); font-weight: 500; }
+  .stat-cap {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-top: 4px;
+  }
+
+  /* ---- Section headings ---- */
+  .sec-head {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sec-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  /* ---- Track cards ---- */
+  .tracks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 38px; }
+  .track {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .track-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .track-name { font-weight: 650; font-size: 15px; }
+  .track-meta { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); white-space: nowrap; }
+
+  /* segmented belt bar = the signature element */
+  .belt { display: flex; gap: 4px; }
+  .seg {
+    flex: 1;
+    height: 8px;
+    border-radius: 3px;
+    background: var(--empty);
+    position: relative;
+    transform-origin: left center;
+  }
+  .seg.filled { background: var(--gold); }
+  .seg.ship { background: var(--ship); }
+  .belt-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .belt-legend span { flex: 1; }
+  .belt-legend span:nth-child(2) { text-align: center; }
+  .belt-legend span:nth-child(3) { text-align: right; }
+  .belt-legend span.on { color: var(--ink-dim); }
+  .belt-legend span.on-ship { color: var(--ship); }
+
+  /* animate segments in */
+  @media (prefers-reduced-motion: no-preference) {
+    .seg.grow { animation: grow 0.5s cubic-bezier(0.2,0.7,0.2,1) backwards; }
+    @keyframes grow { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+  }
+
+  /* ---- Session log ---- */
+  .log { display: flex; flex-direction: column; }
+  .log-row {
+    display: flex;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .log-row:last-child { border-bottom: 0; }
+  .log-date { font-family: var(--mono); font-size: 12px; color: var(--gold); white-space: nowrap; min-width: 92px; padding-top: 1px; }
+  .log-date.empty { color: var(--ink-faint); }
+  .log-note { color: var(--ink); }
+
+  .footer {
+    margin-top: 40px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    font-family: var(--mono);
+    line-height: 1.7;
+  }
+  .footer code { color: var(--ink-dim); }
+
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: 1fr; }
+    .masthead { align-items: flex-start; }
+    .rank-badge { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div>
+      <p class="brand-eyebrow">Training log</p>
+      <h1 class="brand-title">AI Engineering Dojo</h1>
+      <p class="brand-sub" id="sub">Deliberate practice, from understanding to shipping.</p>
+    </div>
+    <div class="rank-badge">
+      <p class="rank-label">Rank</p>
+      <p class="rank-value" id="rank">Unranked</p>
+      <p class="rank-points" id="rank-points">0 / 18</p>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-num" id="shipped-num">0<span class="slash"> / 6</span></div>
+      <div class="stat-cap">Tracks shipped</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="week-num">0</div>
+      <div class="stat-cap">Sessions this week</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="streak-num">0</div>
+      <div class="stat-cap">Week streak</div>
+    </div>
+  </section>
+
+  <h2 class="sec-head">Tracks</h2>
+  <div class="tracks" id="tracks"></div>
+
+  <h2 class="sec-head">Recent sessions</h2>
+  <div class="log" id="log"></div>
+
+  <p class="footer">
+    Updated by your agent each session from <code>progress/STATE.md</code>.<br>
+    Open locally, or deploy the repo to GitHub Pages / Vercel for a live link — no build step.
+  </p>
+</div>
+
+<script>
+  (function () {
+    var TIERS = ["Not started", "Understand", "Build", "Ship"];
+    var data;
+    try {
+      data = JSON.parse(document.getElementById("dojo-data").textContent);
+    } catch (e) {
+      document.getElementById("tracks").innerHTML =
+        '<div class="track">The progress data block isn\'t valid JSON. Check the &lt;script id="dojo-data"&gt; block near the top of index.html.</div>';
+      return;
+    }
+
+    var tracks = data.tracks || [];
+    var nTracks = tracks.length;
+    var maxPoints = nTracks * 3;
+    var points = tracks.reduce(function (s, t) { return s + (t.tier || 0); }, 0);
+    var shipped = tracks.filter(function (t) { return t.tier >= 3; }).length;
+
+    // rank from proportion of total possible tier points
+    function rankFor(p, max) {
+      var r = max ? p / max : 0;
+      if (r >= 1)    return "Sensei";
+      if (r >= 0.85) return "Black belt";
+      if (r >= 0.65) return "Brown belt";
+      if (r >= 0.45) return "Purple belt";
+      if (r >= 0.22) return "Blue belt";
+      if (p >= 1)    return "White belt";
+      return "Unranked";
+    }
+
+    document.getElementById("rank").textContent = rankFor(points, maxPoints);
+    document.getElementById("rank-points").textContent = points + " / " + maxPoints;
+    document.getElementById("shipped-num").innerHTML = shipped + '<span class="slash"> / ' + nTracks + '</span>';
+    var streak = data.streak || {};
+    document.getElementById("week-num").textContent = streak.sessionsThisWeek || 0;
+    document.getElementById("streak-num").textContent = streak.weekStreak || 0;
+    if (data.learner) {
+      document.getElementById("sub").textContent = data.learner + " · deliberate practice, from understanding to shipping.";
+    }
+
+    // track cards
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var html = tracks.map(function (t, i) {
+      var tier = t.tier || 0;
+      var segs = [1, 2, 3].map(function (n) {
+        var cls = "seg";
+        if (tier >= n) cls += (n === 3 ? " ship" : " filled");
+        if (!reduce && tier >= n) cls += " grow";
+        var delay = "";
+        if (!reduce && tier >= n) delay = ' style="animation-delay:' + (i * 60 + n * 90) + 'ms"';
+        return '<div class="' + cls + '"' + delay + '></div>';
+      }).join("");
+      var meta = t.lastTouched
+        ? TIERS[tier] + " · " + t.lastTouched
+        : "Not started";
+      var l1 = tier >= 1 ? "on" : "";
+      var l2 = tier >= 2 ? "on" : "";
+      var l3 = tier >= 3 ? "on-ship" : "";
+      return (
+        '<div class="track">' +
+          '<div class="track-top">' +
+            '<span class="track-name">' + t.name + '</span>' +
+            '<span class="track-meta">' + meta + '</span>' +
+          '</div>' +
+          '<div class="belt">' + segs + '</div>' +
+          '<div class="belt-legend">' +
+            '<span class="' + l1 + '">Understand</span>' +
+            '<span class="' + l2 + '">Build</span>' +
+            '<span class="' + l3 + '">Ship</span>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join("");
+    document.getElementById("tracks").innerHTML = html;
+
+    // session log
+    var log = (data.sessionLog || []).map(function (row) {
+      var d = row.date ? row.date : "—";
+      var cls = row.date ? "log-date" : "log-date empty";
+      return (
+        '<div class="log-row">' +
+          '<span class="' + cls + '">' + d + '</span>' +
+          '<span class="log-note">' + (row.note || "") + '</span>' +
+        '</div>'
+      );
+    }).join("");
+    document.getElementById("log").innerHTML = log ||
+      '<div class="log-row"><span class="log-note">No sessions logged yet.</span></div>';
+  })();
+</script>
+</body>
+</html>

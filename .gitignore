@@ -1,0 +1,11 @@
+# Personal instance files — real progress, real background, real project plans.
+# Keep these local; only the .template versions belong in a public repo.
+USER.md
+progress/STATE.md
+projects/LOG.md
+ACTIVE-BUILDS.md
+
+.DS_Store
+__pycache__/
+*.pyc
+.env

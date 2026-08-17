@@ -1,0 +1,35 @@
+# Learner Profile
+
+_Filled in during setup. Keep this current — the agent uses it to calibrate
+every explanation and project suggestion._
+
+## Background
+- Current role / experience:
+- Education:
+- Existing technical skills (languages, tools, domains):
+- What you already know about AI/ML (be honest — this sets your starting tier):
+
+## Goals
+- Why you're doing this (job search, freelance, product, curiosity):
+- Target outcome (e.g. "AI/LLM engineer role," "freelance AI automation
+  practice," "ship one real product"):
+- Timeline / urgency:
+- Optimization priority: **speed to cashflow / business impact** vs
+  **maximum technical depth**. This isn't binary, but state a lean — it
+  changes real decisions, like whether the agent defaults to a fixed
+  workflow or a full agent for a client build (see
+  `curriculum/07-smb-capstones.md`), and whether it pushes you toward
+  more phases of `ai-engineering-from-scratch` or toward shipping sooner
+  with what you already have.
+
+## Constraints
+- Hours per week available:
+- Preferred learning style (build-first, theory-first, pairs well with
+  deadlines, etc.):
+- Anything specific you want to avoid re-covering:
+
+## Real projects / context the agent should use as teaching vehicles
+List any real projects, businesses, or datasets you have access to — the
+agent should prefer building curriculum work into these over toy examples.
+-
+-

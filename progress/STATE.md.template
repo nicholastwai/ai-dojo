@@ -1,0 +1,29 @@
+# Progress State
+
+_The agent reads and updates this file every session. This is the memory
+that survives a fresh chat._
+
+## Current focus
+- Active track:
+- Current tier on that track: 0 (not started) / 1 (understand) / 2 (build) / 3 (ship)
+
+## Track tiers
+| Track | Tier | Last touched |
+|---|---|---|
+| Prompt engineering | 0 | — |
+| RAG | 0 | — |
+| Agents & tool use | 0 | — |
+| Evals | 0 | — |
+| Fine-tuning | 0 | — |
+| Deployment / productionizing | 0 | — |
+| SMB capstones (go-to-market) | 0 | — |
+
+## Streak
+- Sessions this week:
+- Last session date:
+- Current streak (consecutive weeks with ≥1 session):
+
+## Session log
+_Most recent first. One or two lines per session — what happened, what's next._
+
+- **YYYY-MM-DD**: (setup) Workspace initialized.
